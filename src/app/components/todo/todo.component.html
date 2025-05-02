@@ -1,0 +1,11 @@
+<div class="grid h-full w-full items-center justify-center gap-4 md:grid-cols-2">
+  <div
+    *ngFor="let item of todos; index as i"
+    class="flex h-full w-full cursor-pointer items-center justify-between rounded-lg bg-white p-4 shadow-[0px_2px_6px_0px_#4F617B14] hover:bg-[#005dbb17]"
+    (click)="onClickTodo(item)">
+    <p class="truncate break-words whitespace-normal text-[#242424]">{{ i + 1 }}. {{ item.title }}</p>
+    <span class="w-fit">{{ item.completed ? '✅' : '❌' }}</span>
+  </div>
+</div>
+
+<loading-overlay [isLoading]="isLoading"></loading-overlay>

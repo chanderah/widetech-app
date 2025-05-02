@@ -1,0 +1,50 @@
+<div class="flex w-full items-center justify-center p-4">
+  <div class="flex w-full flex-col md:w-1/2" [formGroup]="form">
+    <span class="mb-4 text-center text-lg">Forms Validation</span>
+
+    <mat-label>Name</mat-label>
+    <mat-form-field class="w-full">
+      <input matInput placeholder="Chandra Sukmagalih Arifin" formControlName="name" />
+      <mat-error>{{ getErrorMessage('name') }}</mat-error>
+    </mat-form-field>
+
+    <mat-label>Email</mat-label>
+    <mat-form-field class="w-full">
+      <input matInput placeholder="chandrachansa@gmail.com" formControlName="email" autocomplete="email" />
+      <mat-error>{{ getErrorMessage('email') }}</mat-error>
+    </mat-form-field>
+
+    <mat-label>Password</mat-label>
+    <mat-form-field class="w-full">
+      <input matInput placeholder="Password" [type]="showPassword ? 'text' : 'password'" formControlName="password" />
+      <button mat-icon-button matSuffix (click)="showPassword = !showPassword">
+        <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+      <mat-error>{{ getErrorMessage('password') }}</mat-error>
+    </mat-form-field>
+
+    <mat-label>Password Confirmation</mat-label>
+    <mat-form-field class="w-full">
+      <input matInput placeholder="Password Confirmation" [type]="showPasswordConfirm ? 'text' : 'password'" formControlName="passwordConfirm" />
+      <button mat-icon-button matSuffix (click)="showPasswordConfirm = !showPasswordConfirm">
+        <mat-icon>{{ showPassword ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
+      <mat-error>{{ getErrorMessage('passwordConfirm') }}</mat-error>
+    </mat-form-field>
+
+    <div class="flex w-full items-center justify-between">
+      <mat-label>Age</mat-label>
+      <div class="flex w-fit items-center justify-between gap-2">
+        <button mat-mini-fab (click)="decrementAge()" [disabled]="form.get('age')?.value <= 1">
+          <mat-icon>remove</mat-icon>
+        </button>
+        <p class="mx-4 select-none">{{ form.value['age'] }}</p>
+        <button mat-mini-fab (click)="incrementAge()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <button mat-flat-button class="mt-8" [disabled]="form.invalid" (click)="onSubmit()">Submit</button>
+  </div>
+</div>

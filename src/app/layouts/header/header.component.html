@@ -1,0 +1,37 @@
+<div
+  class="fixed top-4 left-1/2 z-20 flex h-12 w-[calc(100vw-24px)] -translate-x-1/2 transform items-center justify-between rounded-[80px] border border-[#D9D9D9] p-8 backdrop-blur-3xl md:h-20">
+  <div class="flex w-fit cursor-pointer items-center justify-between gap-4" routerLink="/">
+    <img src="/assets/icon/logo.svg" alt="App Logo" class="h-12 w-12 md:h-16 md:w-16" />
+    <span class="hidden text-lg md:block">Wide Technologies</span>
+  </div>
+
+  <ng-container *ngIf="commonService.isMobile; else desktop">
+    <button mat-icon-button (click)="showMenuDrawer = true">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </ng-container>
+
+  <ng-template #desktop>
+    <div class="flex w-auto items-center justify-between gap-4">
+      <ng-container [ngTemplateOutlet]="listMenu"></ng-container>
+    </div>
+  </ng-template>
+</div>
+
+<div *ngIf="showMenuDrawer" class="bg-opacity-50 fixed inset-0 z-50 backdrop-blur-xs" (click)="closeMenuDrawer()"></div>
+<div [@slideInOut]="showMenuDrawer ? 'in' : 'out'" class="fixed top-0 left-0 z-50 flex h-full w-auto min-w-60 flex-col bg-white px-4 py-2 shadow-lg">
+  <img src="/assets/icon/logo.svg" alt="App Logo" class="mb-4 h-16 w-16" />
+  <ng-container [ngTemplateOutlet]="listMenu"></ng-container>
+</div>
+
+<ng-template #listMenu>
+  <a
+    *ngFor="let item of menus"
+    (click)="closeMenuDrawer()"
+    [routerLink]="item.url"
+    routerLinkActive="active-menu"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="p-2 hover:border-b hover:border-[#005cbb] md:p-0">
+    <p>{{ item.name }}</p>
+  </a>
+</ng-template>
