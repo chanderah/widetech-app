@@ -19,17 +19,29 @@ export class TodoComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.httpService.getTodos().subscribe((res) => {
-      this.isLoading = false;
-      this.todos = res;
+    this.httpService.getTodos().subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        this.todos = res;
+      },
+      error: () => {
+        this.isLoading = false;
+        alert('Failed to fetch data!');
+      },
     });
   }
 
   onClickTodo(data: Todo) {
     this.isLoading = true;
-    this.httpService.getTodoById(data.id).subscribe((res) => {
-      this.isLoading = false;
-      alert(`Response from API: ${JSON.stringify(res)}`);
+    this.httpService.getTodoById(data.id).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        alert(`Response from API: ${JSON.stringify(res)}`);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        alert(`Response from API: ${JSON.stringify(err)}`);
+      },
     });
   }
 }
